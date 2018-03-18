@@ -7,7 +7,9 @@ Page({
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    array: ['哥伦比亚', '耶加雪菲', '肯尼亚', '哥斯达黎加', '巴拿马','云南','巴西','蓝山','曼特宁','危地马拉'],
+    index:0,
   },
   //事件处理函数
   bindViewTap: function() {

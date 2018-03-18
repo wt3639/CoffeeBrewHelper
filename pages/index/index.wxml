@@ -1,13 +1,39 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+<view class='mainView'>
+  <form class='mainForm'>
+    <text class="head">咖啡豆名</text>
+    <picker class="picker" name="coffeeBeanName" bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+      <view>
+        {{array[index]}}
+      </view>
+    </picker>
+
+    <text class="head">研磨程度</text>
+    <picker class="picker" name="Grind" bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+      <view>
+        {{array[index]}}
+      </view>
+    </picker>
+
+    <text class="head">水温</text>
+    <slider name="waterTem" bindchange="bindProtChange" min="0" max="100" step='1' value="{{getProt}}" show-value/>
+    <text class="head">水量</text>
+    <input class="inputlong" type="waterMl" id="energy" name="energy" placeholder="{{advice}}" value="{{energy}}" />
+
+    <text class="head">粉量</text>
+    <input class="inputlong" type="coffeeG" id="energy" name="energy" placeholder="{{advice}}" value="{{energy}}" />
+     <text class="head">焖蒸时间</text>
+     <picker class="picker" name="Grind" bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+      <view>
+        {{array[index]}}
+      </view>
+    </picker>
+     <text class="head">总时间</text>
+     <picker class="picker" name="Grind" bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+      <view>
+        {{array[index]}}
+      </view>
+    </picker>
+    <button class='button' form-type="submit" type="primary">开始</button>
+  </form>
 </view>
