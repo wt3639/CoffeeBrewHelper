@@ -1,39 +1,44 @@
 <!--index.wxml-->
 <view class='mainView'>
   <form class='mainForm'>
+  
+
     <text class="head">咖啡豆名</text>
-    <picker class="picker" name="coffeeBeanName" bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+    <picker class="picker" name="coffeeBeanName" bindchange="bindCoffeeNameChange" value="{{index}}" range="{{array}}">
       <view>
         {{array[index]}}
       </view>
     </picker>
 
     <text class="head">研磨程度</text>
-    <picker class="picker" name="Grind" bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+    <picker class="picker" name="Grind" bindchange="bindGrindChange" value="{{grindIndex}}" range="{{grindArray}}">
       <view>
-        {{array[index]}}
+        {{grindArray[grindIndex]}}
       </view>
     </picker>
 
     <text class="head">水温</text>
-    <slider name="waterTem" bindchange="bindProtChange" min="0" max="100" step='1' value="{{getProt}}" show-value/>
-    <text class="head">水量</text>
-    <input class="inputlong" type="waterMl" id="energy" name="energy" placeholder="{{advice}}" value="{{energy}}" />
-
+    <slider name="waterTem" bindchange="bindWaterTemChange" min="80" max="100" step='1' value="{{waterTem}}" show-value/>
+    
     <text class="head">粉量</text>
-    <input class="inputlong" type="coffeeG" id="energy" name="energy" placeholder="{{advice}}" value="{{energy}}" />
+    <input class="inputlong" type="coffeeG" id="energy" name="energy" placeholder="{{advice}}" value="{{coffeeG}}" />
+    <text class="head">水量</text>
+    <input class="inputlong" type="waterMl" id="energy" name="energy" placeholder="{{advice}}" value="{{waterMl}}" />
+
      <text class="head">焖蒸时间</text>
-     <picker class="picker" name="Grind" bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-      <view>
-        {{array[index]}}
-      </view>
-    </picker>
+     <picker name="brewTime" mode="time" value="{{brewTime}}" start="00:00" end="01:00" bindchange="bindBrewTimeChange">
+    <view class="picker">
+      {{brewTime}}
+    </view>
+  </picker>
      <text class="head">总时间</text>
-     <picker class="picker" name="Grind" bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-      <view>
-        {{array[index]}}
-      </view>
-    </picker>
-    <button class='button' form-type="submit" type="primary">开始</button>
+     <picker name="totalTime" mode="time" value="{{time}}" start="00:00" end="05:00" bindchange="bindTotalTimeChange">
+    <view class="picker">
+      {{TotalTime}}
+    </view>
+  </picker>
+    <button class='button' bindtap='startTimer' type="primary">开始</button>
   </form>
+ <progress percent="{{brewPercent}}"  stroke-width="14" />
+ <text class="head">00:{{second}}</text>
 </view>
