@@ -1,14 +1,14 @@
 <!--index.wxml-->
 <view class='mainView'>
-  <form class='mainForm'>
-  
-
+  <form class='mainForm' bindsubmit="formSubmit" bindreset="formReset">
     <text class="head">咖啡豆名</text>
     <picker class="picker" name="coffeeBeanName" bindchange="bindCoffeeNameChange" value="{{index}}" range="{{array}}">
       <view>
         {{array[index]}}
       </view>
     </picker>
+ <input class="inputlong" type="text" id="coffeeBean" name="coffeeBean" value="{{coffeeBean}}" hidden='{{inputHide}}' />
+
 
     <text class="head">研磨程度</text>
     <picker class="picker" name="Grind" bindchange="bindGrindChange" value="{{grindIndex}}" range="{{grindArray}}">
@@ -21,9 +21,9 @@
     <slider name="waterTem" bindchange="bindWaterTemChange" min="80" max="100" step='1' value="{{waterTem}}" show-value/>
     
     <text class="head">粉量</text>
-    <input class="inputlong" type="coffeeG" id="energy" name="energy" placeholder="{{advice}}" value="{{coffeeG}}" />
+    <input class="inputlong" type="digit" id="coffePowderMass" name="coffeePowderMass"  value="{{coffeeG}}" />
     <text class="head">水量</text>
-    <input class="inputlong" type="waterMl" id="energy" name="energy" placeholder="{{advice}}" value="{{waterMl}}" />
+    <input class="inputlong" type="digit" id="waterMass" name="waterMass"  value="{{waterMl}}" />
 
      <text class="head">焖蒸时间</text>
      <picker name="brewTime" mode="time" value="{{brewTime}}" start="00:00" end="01:00" bindchange="bindBrewTimeChange">
@@ -32,13 +32,11 @@
     </view>
   </picker>
      <text class="head">总时间</text>
-     <picker name="totalTime" mode="time" value="{{time}}" start="00:00" end="05:00" bindchange="bindTotalTimeChange">
+     <picker name="totalTime" mode="time" value="{{totalTime}}" start="00:00" end="05:00" bindchange="bindTotalTimeChange">
     <view class="picker">
-      {{TotalTime}}
+      {{totalTime}}
     </view>
   </picker>
-    <button class='button' bindtap='startTimer' type="primary">开始</button>
+    <button class='button' form-type='submit' type="primary">开始</button>
   </form>
- <progress percent="{{brewPercent}}"  stroke-width="14" />
- <text class="head">00:{{second}}</text>
 </view>

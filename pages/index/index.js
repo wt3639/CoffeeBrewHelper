@@ -1,9 +1,7 @@
 //index.js
 //获取应用实例
 const app = getApp()
-var timer
-var second = 0;
-var countSecond;
+
 Page({
   data: {
     motto: 'Hello World',
@@ -12,15 +10,15 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
 
 
-    array: ['哥伦比亚', '耶加雪菲', '肯尼亚', '哥斯达黎加', '巴拿马','云南','巴西','蓝山','曼特宁','危地马拉','添加豆子'],
+    array: ['哥伦比亚', '耶加雪菲', '肯尼亚', '哥斯达黎加', '巴拿马','云南','巴西','蓝山','曼特宁','危地马拉','自定义'],
     index:0,
     grindArray: ['粗粉', '中粉', '中细粉', '细粉', '极细粉'],
     grindIndex: 2,
     brewTime:'00:30',
-    TotalTime:'00:50',
+    totalTime:'00:50',
     waterTem:92,
-    brewPercent:0,
-    second: 0,
+    coffeeBean:'哥伦比亚',
+    inputHide:true,
   },
   //事件处理函数
   bindViewTap: function() {
@@ -67,9 +65,19 @@ Page({
 
   bindCoffeeNameChange: function (e) {
     console.log('咖啡豆修改为', e.detail.value)
-    this.setData({
-      index: e.detail.value
-    })
+    if(e.detail.value == this.data.array.length-1){
+      this.setData({
+        index: e.detail.value,
+        inputHide:false,
+        coffeeBean:''
+      })
+    }else{
+      this.setData({
+        index: e.detail.value,
+        coffeeBean:this.data.array[e.detail.value],
+        inputHide: true,
+      })
+    }
   },
 
 bindGrindChange:function(e){
@@ -97,49 +105,36 @@ bindBrewTimeChange: function (e) {
 bindTotalTimeChange: function (e) {
   console.log('总时间发送选择改变，携带值为', e.detail.value)
   this.setData({
-    TotalTime: e.detail.value
+    totalTime: e.detail.value
   })
 },
 
-bindTotalTimeChange: function (e) {
-  console.log('总时间发送选择改变，携带值为', e.detail.value)
-  this.setData({
-    TotalTime: e.detail.value
-  })
+
+formSubmit: function (e) {
+  console.log(e.detail.value)
+  if (e.detail.value.coffeeBean.length == 0
+    || e.detail.value.coffeePowderMass.length == 0 
+    || e.detail.value.waterMass.length == 0) {
+    wx.showToast({
+      title: '请正确填入表单',
+      icon: 'success',
+      duration: 2000
+    })
+  } else {
+    var objData = e.detail.value;
+    // 同步方式存储表单数据
+    wx.setStorageSync('brewInfo', objData)
+    console.log(app.openid)
+    
+    wx.navigateTo({
+      url: '../brew/brew?coffeeBean=' + e.detail.value.coffeeBean + '&Grind=' + e.detail.value.Grind + '&waterTem=' + e.detail.value.waterTem + '&coffeePowderMass=' + e.detail.value.coffeePowderMass + '&waterMass=' + e.detail.value.waterMass
+      + '&brewTime=' + e.detail.value.brewTime + '&totalTime=' + e.detail.value.totalTime
+    }),
+      console.log(e.detail.value)
+  }
+
 },
-
-startTimer:function(){
-  console.log("开始按钮");
-  clearTimeout(timer);
-  countSecond = parseInt(this.data.brewTime.split(":")[1]);
-  this.setData({
-    second:0,
-    brewPercent: 0
-  })
-  second=0;
-  Countdown(this);
-},
-
-
 
 })
 
 
-function Countdown(that) {
-  if (second == countSecond) {
-     console.log("Time up...");
-    that.setData({
-      brewPercent: 100
-    });
-    return;
-  }
-  second++;
-  timer = setTimeout(function () {
-    console.log("----Countdown----");
-    that.setData({
-      brewPercent: second / countSecond*100,
-      second:second,
-    });
-    Countdown(that);
-  }, 1000);
-};
