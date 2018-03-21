@@ -1,8 +1,6 @@
- <text class="head" hidden='{{brewPercentHide}}'>{{second}}</text>
- <progress percent="{{brewPercent}}"  stroke-width="40" hidden='{{brewPercentHide}}' />
-
- <text class="head" hidden='{{totalPercentHide}}'>{{totalSecond}}</text>
-  <progress percent="{{totalPercent}}"  stroke-width="40" hidden='{{totalPercentHide}}'/>
+ <text class="head" >当前部分时间:{{partSecond}}s/总时间:{{second}}s</text>
+ <progress percent="{{partPercent}}"  stroke-width="40"  />
 
  <button class='button' bindtap='startTimer' type="primary" hidden='{{startHide}}'>开始焖蒸</button>
- <button class='button' bindtap='stopTimer' type="primary" hidden='{{stopHide}}'>完成焖蒸</button>
+ <button class='button' bindtap='stopBrewTimer' type="primary" hidden='{{stopBrewHide}}'>完成焖蒸</button>
+  <button class='button' bindtap='stopTimer' type="primary" hidden='{{stopHide}}'>完成注水</button>
