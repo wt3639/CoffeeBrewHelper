@@ -1,42 +1,96 @@
 <!--index.wxml-->
 <view class='mainView'>
   <form class='mainForm' bindsubmit="formSubmit" bindreset="formReset">
-    <text class="head">咖啡豆名</text>
-    <picker class="picker" name="coffeeBeanName" bindchange="bindCoffeeNameChange" value="{{index}}" range="{{array}}">
-      <view>
-        {{array[index]}}
+    <view class="uper">
+      <view class='triItems'>
+        <view class='Mass' bindtap='coffeeTap'>
+          <view class='Image'>
+            <view>
+              <image class="icon" src="/image/coffee.png"></image>
+            </view>
+            <view class='name'>
+              <text>咖啡豆量(g)</text>
+            </view>
+          </view>
+          <view class="inputView">
+            <input class="inputlong" type="digit" id="coffePowderMass" name="coffeePowderMass" value="{{coffeeG}}" bindinput='coffeeMChange' focus='{{coffeeFocus}}'/>
+          </view>
+        </view>
+        <view class='Mass'bindtap='waterTap'>
+          <view class='Image'>
+            <image class="icon" src="/image/water.png"></image>
+            <view class='name'>
+              <text>注水量(ml)</text>
+            </view>
+          </view>
+          <view class="inputView">
+            <input class="inputlong" type="digit" id="waterMass" name="waterMass" value="{{waterMl}}" bindinput='waterMChange' focus='{{waterFocus}}'/>
+          </view>
+        </view>
+        <view class='Mass' bindtap='tempTap'>
+          <view class='Image'>
+            <image class="icon" src="/image/temp.png"></image>
+            <view class='name'>
+              <text>水温(℃)</text>
+            </view>
+          </view>
+          <view class="inputView">
+            <input class="inputlong" type="digit" id="waterTem" name="waterTem" value="{{waterTem}}" focus='{{tempFocus}}' />
+          </view>
+        </view>
       </view>
-    </picker>
- <input class="inputlong" type="text" id="coffeeBean" name="coffeeBean" value="{{coffeeBean}}" hidden='{{inputHide}}' />
-
-
-    <text class="head">研磨程度</text>
-    <picker class="picker" name="Grind" bindchange="bindGrindChange" value="{{grindIndex}}" range="{{grindArray}}">
-      <view>
-        {{grindArray[grindIndex]}}
+      <view class="secondLine">
+       <view class="bi">
+        <text decode="true">┗&ensp;&ensp;&ensp;1：</text>
+        <input class="biInput" type="digit" id="powderWaterBi" name="powderWaterBi" value="{{biDigit}}" bindinput='biChange'></input>
+        <text decode='true'>&ensp;&ensp;&ensp;┛</text>
       </view>
-    </picker>
-
-    <text class="head">水温</text>
-    <slider name="waterTem" bindchange="bindWaterTemChange" min="80" max="100" step='1' value="{{waterTem}}" show-value/>
-    
-    <text class="head">粉量</text>
-    <input class="inputlong" type="digit" id="coffePowderMass" name="coffeePowderMass"  value="{{coffeeG}}" />
-    <text class="head">水量</text>
-    <input class="inputlong" type="digit" id="waterMass" name="waterMass"  value="{{waterMl}}" />
-
-     <text class="head">焖蒸时间</text>
-     <picker name="brewTime" mode="time" value="{{brewTime}}" start="00:00" end="01:00" bindchange="bindBrewTimeChange">
-    <view class="picker">
-      {{brewTime}}
+      </view>
     </view>
-  </picker>
-     <text class="head">总时间</text>
-     <picker name="totalTime" mode="time" value="{{totalTime}}" start="00:00" end="05:00" bindchange="bindTotalTimeChange">
-    <view class="picker">
-      {{totalTime}}
+    <view class='row'>
+      <text class="head">咖啡豆名</text>
+      <view>
+        <picker class="picker" name="coffeeBeanName" bindchange="bindCoffeeNameChange" value="{{index}}" range="{{array}}">
+          <view class='pickerView'>
+            {{array[index]}}
+          </view>
+        </picker>
+        <view class="coffeeInputView">
+         <input class="beanInput" type="text" id="coffeeBean" name="coffeeBean" value="{{coffeeBean}}" hidden='{{inputHide}}' />
+        </view>
+      </view>
     </view>
-  </picker>
-    <button class='button' form-type='submit' type="primary">开始</button>
+    <view class="row">
+
+      <text class="head">研磨程度</text>
+      <picker class="picker" name="Grind" bindchange="bindGrindChange" value="{{grindIndex}}" range="{{grindArray}}">
+        <view>
+          {{grindArray[grindIndex]}}
+        </view>
+      </picker>
+    </view>
+    <view class="row">
+      <text class="head">焖蒸时间</text>
+      <picker name="brewTime" mode="time" value="{{brewTime}}" start="00:00" end="01:00" bindchange="bindBrewTimeChange">
+        <view class="picker">
+          {{brewTime}}
+        </view>
+      </picker>
+    </view>
+    <view class="row">
+      <text class="head">总时间</text>
+      <picker name="totalTime" mode="time" value="{{totalTime}}" start="00:00" end="05:00" bindchange="bindTotalTimeChange">
+        <view class="picker">
+          {{totalTime}}
+        </view>
+      </picker>
+    </view>
+
+    <button class='button' form-type='submit'>开始</button>
   </form>
+  <button class='button' bindtap='toHistory'>手冲历史记录</button>
 </view>
+
+<modal  hidden="{{hiddenmodalput}}" title="请输入咖啡豆名" confirm-text="提交" cancel-text="取消" bindcancel="coffeCancel" bindconfirm="coffeeConfirm">  
+    <input  type='text'placeholder="请输入内容" value="{{coffeeBean}}"  bindblur="inputOver"/>  
+</modal>

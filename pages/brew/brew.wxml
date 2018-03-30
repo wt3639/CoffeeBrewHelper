@@ -1,6 +1,42 @@
- <text class="head" >当前部分时间:{{partSecond}}s/总时间:{{second}}s</text>
- <progress percent="{{partPercent}}"  stroke-width="40"  />
+<view class='mainView'>
+  <view class='row'>
+    <view class='mainHead'>本次手冲明细</view>
+  </view>
+  <view class='info'>
+  <view class='row'>
+    <view class='head'>咖啡豆名:</view>
+    <view class='context'>{{coffeeBean}}</view>
+  </view>
+  <view class='row'>
+    <view class='head'>研磨程度:</view>
+    <view class='context'>{{grindArray[grindIndex]}}</view>
+    <view class='head'>水温:</view>
+    <view class='context'>{{waterTemp}}℃</view>
+  </view>
+  <view class='row'>
+    <view class='head'>咖啡豆量:</view>
+    <view class='context'>{{powderM}}g</view>
+    <view class='head'>注水量:</view>
+    <view class='context'>{{waterM}}ml</view>
+  </view>
+  <view class='row'>
+    <view class='head'>预计焖蒸时间:</view>
+    <view class='context'>{{brewTime}}s</view>
+    <view class='head'>预计总耗时:</view>
+    <view class='context'>{{totalTime}}s</view>
+  </view>
+  </view>
+  
+<view class="timeHead">
+  <text>当前部分时间:{{partSecond}}s/总时间:{{second}}s</text>
+</view>
 
- <button class='button' bindtap='startTimer' type="primary" hidden='{{startHide}}'>开始焖蒸</button>
- <button class='button' bindtap='stopBrewTimer' type="primary" hidden='{{stopBrewHide}}'>完成焖蒸</button>
-  <button class='button' bindtap='stopTimer' type="primary" hidden='{{stopHide}}'>完成注水</button>
+  <view class="progressView">
+    <progress class="progress" percent="{{partPercent}}" stroke-width="300" color="#804000" />
+  </view>
+  <view class="buttonView">
+  <button class='button' bindtap='startTimer'  hidden='{{startHide}}'>开始焖蒸</button>
+  <button class='button' bindtap='stopBrewTimer'  hidden='{{stopBrewHide}}'>完成焖蒸</button>
+  <button class='button' bindtap='stopTimer'  hidden='{{stopHide}}'>完成注水</button>
+  </view>
+</view>

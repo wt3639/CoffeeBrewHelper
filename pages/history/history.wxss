@@ -1,34 +1,21 @@
 page{
   background: #180c00;
+  color: white;
 }
-
 .progress{
   transform: rotate(270deg);
   width: 500rpx;
   height: 500rpx;
   margin-top: 50rpx;
-  margin-left: 110rpx;
-}
-
-.progressView{
-  
-}
-
-.buttonView{
-  margin-top: 10rpx;
-}
-
-.timeHead{
-   color: #b49e89;
-   margin-top: 20rpx;
+  margin-left: 125rpx;
 }
 
 .row{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 60rpx;
-  padding-top: 20rpx;
+  height: 50rpx;
+  padding-top: 10rpx;
 }
 
 .mainHead{
@@ -52,7 +39,9 @@ page{
 
 .context{
   color: white;
+
 }
+
 .button{
   margin-top: 10rpx;
   background: #bf723e;

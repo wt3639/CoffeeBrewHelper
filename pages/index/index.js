@@ -1,7 +1,6 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
 Page({
   data: {
     motto: 'Hello World',
@@ -9,16 +8,22 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
 
-
-    array: ['哥伦比亚', '耶加雪菲', '肯尼亚', '哥斯达黎加', '巴拿马','云南','巴西','蓝山','曼特宁','危地马拉','自定义'],
+    array: ['哥伦比亚', '耶加雪菲', '肯尼亚', '哥斯达黎加', '巴拿马','云南','巴西','曼特宁','危地马拉','自定义'],
     index:0,
     grindArray: ['粗粉', '中粉', '中细粉', '细粉', '极细粉'],
     grindIndex: 2,
     brewTime:'00:30',
-    totalTime:'00:50',
+    totalTime:'02:50',
     waterTem:92,
     coffeeBean:'哥伦比亚',
     inputHide:true,
+    waterMl:225,
+    coffeeG:15,
+    biDigit:15.0,
+    coffeeFocus:false,
+    waterFocus:false,
+    tempFocus:false,
+    hiddenmodalput:true,
   },
   //事件处理函数
   bindViewTap: function() {
@@ -53,6 +58,27 @@ Page({
         }
       })
     }
+    var brewinfo = wx.getStorageSync("brewInfo")
+    if(brewinfo){
+    this.setData({
+      index: brewinfo.coffeeBeanName,
+      coffeeBean:brewinfo.coffeeBean,
+      grindIndex: brewinfo.Grind,
+      brewTime: brewinfo.brewTime,
+      totalTime: brewinfo.totalTime,
+      waterTem: brewinfo.waterTem,
+      coffeeBean: brewinfo.coffeeBean,
+      coffeeG:brewinfo.coffeePowderMass,
+      waterMl:brewinfo.waterMass,
+    })
+    }
+    var coffeeArray = wx.getStorageSync("coffeeArray")
+    if(coffeeArray){
+      this.setData({
+        array: coffeeArray,
+      })
+    }
+    
   },
   getUserInfo: function(e) {
     console.log(e)
@@ -68,14 +94,13 @@ Page({
     if(e.detail.value == this.data.array.length-1){
       this.setData({
         index: e.detail.value,
-        inputHide:false,
+        hiddenmodalput:false,
         coffeeBean:''
       })
     }else{
       this.setData({
         index: e.detail.value,
         coffeeBean:this.data.array[e.detail.value],
-        inputHide: true,
       })
     }
   },
@@ -109,6 +134,73 @@ bindTotalTimeChange: function (e) {
   })
 },
 
+coffeeMChange:function(e){
+    this.setData({
+      waterMl:(e.detail.value * this.data.biDigit).toFixed(1),
+    })
+},
+
+waterMChange:function(e){
+    this.setData({
+      biDigit:(e.detail.value/this.data.coffeeG).toFixed(1),
+    })
+},
+
+biChange:function(e){
+    this.setData({
+      waterMl:(this.data.coffeeG * e.detail.value).toFixed(1),
+    })
+},
+
+coffeeTap:function(){
+  this.setData({
+    coffeeFocus:true,
+  })
+},
+
+waterTap:function(){
+  this.setData({
+    waterFocus:true,
+  })
+},
+
+tempTap:function(){
+  this.setData({
+    tempFocus:true,
+  })
+},
+
+coffeeConfirm:function(){
+  if(this.data.coffeeBean){
+  this.data.array[this.data.array.length-1]=this.data.coffeeBean;
+  this.data.array.push("自定义")
+  console.log(this.data.array)
+  this.setData({
+    hiddenmodalput: true,
+    array:this.data.array
+  })
+  wx.setStorageSync("coffeeArray", this.data.array);
+  }else{
+    wx.showToast({
+      title: '请填入内容',
+      icon: 'success',
+      duration: 2000
+    })
+  }
+},
+
+coffeCancel:function(){
+  this.setData({
+    hiddenmodalput: true,
+    index:0,
+  })
+},
+
+inputOver:function(e){
+  this.setData({
+    coffeeBean:e.detail.value
+  })
+},
 
 formSubmit: function (e) {
   console.log(e.detail.value)
@@ -128,13 +220,35 @@ formSubmit: function (e) {
     
     wx.navigateTo({
       url: '../brew/brew?coffeeBean=' + e.detail.value.coffeeBean + '&Grind=' + e.detail.value.Grind + '&waterTem=' + e.detail.value.waterTem + '&coffeePowderMass=' + e.detail.value.coffeePowderMass + '&waterMass=' + e.detail.value.waterMass
-      + '&brewTime=' + e.detail.value.brewTime + '&totalTime=' + e.detail.value.totalTime
+      + '&brewTime=' + (parseInt(e.detail.value.brewTime.split(":")[0]) * 60 + parseInt(e.detail.value.brewTime.split(":")[1])) + '&totalTime=' + (parseInt(e.detail.value.totalTime.split(":")[0]) * 60 + parseInt(e.detail.value.totalTime.split(":")[1]))
     }),
       console.log(e.detail.value)
   }
 
 },
 
+toHistory:function(){
+  app.globalData.coffeeRecordArray = wx.getStorageSync("recorde")||[]
+  wx.navigateTo({
+    url: '../history/history'
+  });
+},
+onShareAppMessage: function (res) {
+  if (res.from === 'menu') {
+    // 来自页面内转发按钮
+    console.log(res.target)
+  }
+  return {
+    title: '手冲咖啡助手',
+    path: '/pages/index/index',
+    success: function (res) {
+      // 转发成功
+    },
+    fail: function (res) {
+      // 转发失败
+    }
+  }
+},
 })
 
 

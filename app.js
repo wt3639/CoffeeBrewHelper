@@ -1,5 +1,9 @@
 //app.js
+
 App({
+  globalData:{
+    coffeeRecordArray:null
+  },
   onLaunch: function () {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
@@ -32,8 +36,10 @@ App({
         }
       }
     })
+
+    this.globalData.coffeeRecordArray = wx.getStorageSync("recorde") || []
   },
   globalData: {
     userInfo: null
-  }
+  },
 })

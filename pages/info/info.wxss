@@ -7,27 +7,14 @@ page{
   width: 500rpx;
   height: 500rpx;
   margin-top: 50rpx;
-  margin-left: 110rpx;
-}
-
-.progressView{
-  
-}
-
-.buttonView{
-  margin-top: 10rpx;
-}
-
-.timeHead{
-   color: #b49e89;
-   margin-top: 20rpx;
+  margin-left: 125rpx;
 }
 
 .row{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 60rpx;
+  height: 80rpx;
   padding-top: 20rpx;
 }
 
@@ -52,9 +39,21 @@ page{
 
 .context{
   color: white;
+
 }
+
 .button{
   margin-top: 10rpx;
   background: #bf723e;
   color: white;
+}
+
+.slider{
+  width: 500rpx;
+}
+
+.longText{
+  color: white;
+  background: #281707;
+  width: 675rpx;
 }

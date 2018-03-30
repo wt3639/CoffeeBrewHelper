@@ -7,6 +7,15 @@ var totalSecond = 0;
 var totalTime = 0;
 var partTime=0;
 var preStopBrew = false;
+var coffeeRecord= {
+  coffeeName: "",
+  grindIndex: 0,
+  waterTemp: 0,
+  powderM: 0,
+  waterM: 0,
+  brewTime: 0,
+  totalTime: 0,
+};
 Page({
 
   /**
@@ -18,15 +27,39 @@ Page({
     partSecond:0,
     startHide:false,
     stopBrewHide:true,
-    stopHide:true
+    stopHide:true,
+    grindArray: ['粗粉', '中粉', '中细粉', '细粉', '极细粉'],
+    coffeeBean:'',
+    grindIndex:0,
+    waterTemp:0,
+    powderM:0,
+    waterM:0,
+    brewTime:'',
+    totalTime:'',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    brewTime = parseInt(options.brewTime.split(":")[0])*60 + parseInt(options.brewTime.split(":")[1]);
-    totalTime = parseInt(options.totalTime.split(":")[0])*60+ parseInt(options.totalTime.split(":")[1]);
+    this.setData({
+      coffeeBean: decodeURI(options.coffeeBean),
+      grindIndex: options.Grind,
+      waterTemp: options.waterTem,
+      powderM: options.coffeePowderMass,
+      waterM: options.waterMass,
+      brewTime: options.brewTime,
+      totalTime: options.totalTime
+    })
+
+
+    brewTime = options.brewTime;
+    totalTime = options.totalTime;
+    coffeeRecord.coffeeName =options.coffeeBean;
+    coffeeRecord.grindIndex = options.Grind;
+    coffeeRecord.waterTemp = options.waterTem;
+    coffeeRecord.powderM = options.coffeePowderMass;
+    coffeeRecord.waterM = options.waterMass;
   },
 
   /**
@@ -110,15 +143,26 @@ Page({
     partSecond = 1;
     partTime = totalTime - brewTime;
     preStopBrew = true;
-    
+    coffeeRecord.brewTime = this.data.second;
   },
   
   stopTimer:function(){
     console.log("完成注水按钮");
     clearTimeout(timer);
-
+    coffeeRecord.totalTime = this.data.second;
+    console.log(coffeeRecord)
+    second = 0;
+    partSecond = 0;
+    brewTime = 0;
+    totalSecond = 0;
+    totalTime = 0;
+    partTime = 0;
+    preStopBrew = false;
+    wx.redirectTo({
+      url: '../info/info?coffeeBean=' + coffeeRecord.coffeeName + "&Date="+coffeeRecord.Date +'&Grind=' + coffeeRecord.grindIndex + '&waterTem=' + coffeeRecord.waterTemp + '&coffeePowderMass=' + coffeeRecord.powderM + '&waterMass=' + coffeeRecord.waterM
+      + '&brewTime=' + coffeeRecord.brewTime + '&totalTime=' + coffeeRecord.totalTime 
+    });
   }
-
 })
 
 function Countdown(that) {
@@ -131,6 +175,7 @@ function Countdown(that) {
     });
     partSecond=0;
     partTime = totalTime - brewTime;
+    coffeeRecord.brewTime = brewTime;
   }
   
   if(second == totalTime){
@@ -147,28 +192,5 @@ function Countdown(that) {
       partSecond:partSecond,
     });
     Countdown(that);
-  }, 1000);
-};
-
-function Countdown2(that) {
-  that.setData({
-    totalPercentHide:false
-  })
-  var extraSecond = totalCountSecond - countSecond;
-  if (totalSecond == extraSecond) {
-    console.log("Total time up...");
-    that.setData({
-      totalPercent: 100
-    });
-    return;
-  }
-  totalSecond++;
-  timer = setTimeout(function () {
-    console.log("----Countdown2----");
-    that.setData({
-      totalPercent: totalSecond / extraSecond * 100,
-      totalSecond: totalSecond,
-    });
-    Countdown2(that);
   }, 1000);
 };

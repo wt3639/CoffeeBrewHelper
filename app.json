@@ -2,12 +2,14 @@
   "pages":[
     "pages/index/index",
     "pages/logs/logs",
-    "pages/brew/brew"
+    "pages/brew/brew",
+    "pages/history/history",
+    "pages/info/info"
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarBackgroundColor": "#180c00",
+    "navigationBarTitleText": "手冲咖啡助手",
+    "navigationBarTextStyle":"white"
   }
 }

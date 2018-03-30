@@ -1,4 +1,8 @@
 /**index.wxss**/
+page{
+  background: #180c00;
+  
+}
 .userinfo {
   display: flex;
   flex-direction: column;
@@ -18,4 +22,104 @@
 
 .usermotto {
   margin-top: 200px;
+}
+
+.mainView{
+  margin:20rpx; 
+}
+
+.powderbiwater{
+  display: flex;
+  flex-direction: row;
+}
+
+.head{
+  color: #b49e89
+}
+
+.inputlong{
+  background: #412b1e;
+  width: 220rpx;
+  text-align: center;
+  color:#cbbeb8;
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100rpx;
+  border-bottom: solid #423024 4rpx;
+  padding-top: 40rpx;
+}
+.pickerView{
+  color: white
+}
+.triItems{
+  display: flex;
+  flex-direction: row;
+  height: 325rpx;
+  
+}
+.Image{
+  height: 300rpx;
+  background: #291608;
+}
+.icon{
+  height: 180rpx;
+  width: 200rpx;
+  margin-left: 10rpx;
+  margin-top: 20rpx;
+}
+.Mass{
+  height: 300rpx;
+  width: 220rpx;
+   display: flex;
+  flex-direction: column;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+  margin-top: 10rpx;
+}
+.name{
+  text-align: center;
+  width: 220rpx;
+  color: #a89382;
+}
+.picker{
+  color: white;
+  text-align: right;
+  width: 450rpx;
+}
+.beanInput{
+    background: #412b1e;
+  width: 400rpx;
+  text-align: right;
+  color:#cbbeb8;
+}
+.button{
+  margin-top: 10rpx;
+  background: #bf723e;
+  color: white;
+}
+.bi{
+  font-size: 40rpx;
+  color: #cbbeb8;
+  width: 470rpx;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height:50rpx;
+  line-height: 50rpx;
+}
+.biInput{
+  width: 90rpx;
+  background: #412b1e;
+  text-align: center;
+  height: 50rpx;
+}
+.coffeeInputView{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 }

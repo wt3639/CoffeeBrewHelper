@@ -1,0 +1,63 @@
+<view class='mainView'>
+  <view class='row'>
+    <view class='mainHead'>本次手冲明细</view>
+  </view>
+  <view class='info'>
+    <view class='row'>
+      <view class='head'>咖啡豆名:</view>
+      <view class='context'>{{coffeeBean}}</view>
+    </view>
+    <view class='row'>
+      <view class='head'>研磨程度:</view>
+      <view class='context'>{{grindArray[grindIndex]}}</view>
+      <view class='head'>水温:</view>
+      <view class='context'>{{waterTemp}}℃</view>
+    </view>
+    <view class='row'>
+      <view class='head'>咖啡豆量:</view>
+      <view class='context'>{{powderM}}g</view>
+      <view class='head'>注水量:</view>
+      <view class='context'>{{waterM}}ml</view>
+    </view>
+    <view class='row'>
+      <view class='head'>实际焖蒸时间:</view>
+      <view class='context'>{{realBrewTime}}s</view>
+      <view class='head'>实际总耗时:</view>
+      <view class='context'>{{realTotalTime}}s</view>
+    </view>
+    <form bindsubmit="formSubmit" bindreset="formReset">
+      <view class='row'>
+        <view class='head'>酸度:</view>
+        <view>
+          <slider class="slider" activeColor="#bf723e" name="sourIndex" bindchange="sourSliderchange" min="1" max="5" show-value value='{{sourIndex}}' />
+        </view>
+
+      </view>
+      <view class='row'>
+        <view class='head'>甜度:</view>
+        <view>
+          <slider class="slider" activeColor="#bf723e" name="sweetIndex" bindchange="sweetSliderchange" min="1" max="5" show-value value="{{sweetIndex}}" />
+        </view>
+      </view>
+      <view class='row'>
+        <view class='head'>苦度:</view>
+        <view>
+          <slider class="slider" activeColor="#bf723e" name="bitterIndex" bindchange="bitterSliderchange" min="1" max="5" show-value value="{{bitterIndex}}" />
+        </view>
+      </view>
+      <view class='row'>
+        <view class='head'>综评:</view>
+        <view>
+          <slider class="slider" activeColor="#bf723e" name="rate" bindchange="rateSliderchange" min="1" max="5" show-value value="{{rate}}" />
+        </view>
+      </view>
+      <view class='row'>
+        <view class='head'>记录:</view>
+      </view>
+      <textarea name="context" class="longText" bindconfirm='textConfirm' value="{{context}}" />
+  
+  <button class='button'  form-type="submit">完成</button>
+
+  </form>
+</view>
+</view>
